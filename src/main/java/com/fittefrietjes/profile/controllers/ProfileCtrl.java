@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/profile")
-public class ProfileController {
+public class ProfileCtrl {
 
     @GetMapping("/{ProfileId}")
     public Profile GetProfileById(@PathVariable("ProfileId") int ProfileId) {

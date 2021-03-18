@@ -3,7 +3,6 @@ package com.fittefrietjes.profile;
 import com.fittefrietjes.profile.models.Account;
 import com.fittefrietjes.profile.models.Profile;
 import com.fittefrietjes.profile.models.enums.AccountStatus;
-import com.fittefrietjes.profile.models.enums.UnitsDistance;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,8 +11,6 @@ public class ProfileApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProfileApplication.class, args);
-
-
 
 	}
 
