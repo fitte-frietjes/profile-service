@@ -12,54 +12,81 @@ public class Account {
     private Boolean verified;
     private AccountStatus accountStatus;
 
-    public Account() {
+    public Account(Builder builder) {
+        this.ID = builder.ID;
+        this.name = builder.name;
+        this.loginType = builder.loginType;
+        this.email = builder.email;
+        this.verified = builder.verified;
+        this.accountStatus = builder.accountStatus;
     }
 
     public int getID() {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public LoginType getLoginType() {
         return loginType;
     }
 
-    public void setLoginType(LoginType loginType) {
-        this.loginType = loginType;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Boolean getVerified() {
         return verified;
     }
 
-    public void setVerified(Boolean verified) {
-        this.verified = verified;
-    }
-
     public AccountStatus getAccountStatus() {
         return accountStatus;
     }
 
-    public void setAccountStatus(AccountStatus accountStatus) {
-        this.accountStatus = accountStatus;
+    public static class Builder{
+        private int ID;
+        private String name;
+        private LoginType loginType;
+        private String email;
+        private Boolean verified;
+        private AccountStatus accountStatus;
+
+        public Builder setID(int ID) {
+            this.ID = ID;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setLoginType(LoginType loginType) {
+            this.loginType = loginType;
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setVerified(Boolean verified) {
+            this.verified = verified;
+            return this;
+        }
+
+        public Builder setAccountStatus(AccountStatus accountStatus) {
+            this.accountStatus = accountStatus;
+            return this;
+        }
+
+        public Account build(){
+            return new Account(this);
+        }
+
     }
+
 }
