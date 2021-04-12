@@ -6,13 +6,11 @@ import com.fittefrietjes.profile.models.Snack;
 import com.fittefrietjes.profile.models.enums.AccountStatus;
 import com.fittefrietjes.profile.models.enums.LoginType;
 import com.fittefrietjes.profile.models.enums.UnitsDistance;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/profile")
 public class ProfileCtrl {
