@@ -12,7 +12,7 @@ import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("/")
 public class ProfileCtrl {
 
     @GetMapping("/{ProfileId}")
