@@ -6,6 +6,7 @@ import com.fittefrietjes.profile.models.Snack;
 import com.fittefrietjes.profile.models.enums.AccountStatus;
 import com.fittefrietjes.profile.models.enums.LoginType;
 import com.fittefrietjes.profile.models.enums.UnitsDistance;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
 @RequestMapping("/")
 public class ProfileCtrl {
 
+    @Operation(summary = "Get profile by ID")
     @GetMapping("/{ProfileId}")
     public Profile GetProfileById(@PathVariable("ProfileId") int ProfileId) {
 
