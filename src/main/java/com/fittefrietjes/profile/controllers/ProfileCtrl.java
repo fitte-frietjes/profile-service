@@ -22,7 +22,7 @@ public class ProfileCtrl {
 
         // Create account
         var account = new Account.Builder()
-                .setID(1)
+                .setID(ProfileId)
                 .setName("Test Account")
                 .setEmail("test@test.nl")
                 .setAccountStatus(AccountStatus.ACTIVE)
