@@ -12,8 +12,6 @@ public class Account {
     private Boolean verified;
     private AccountStatus accountStatus;
 
-    public Account(){}
-
     public Account(Builder builder) {
         this.ID = builder.ID;
         this.name = builder.name;
@@ -46,8 +44,6 @@ public class Account {
     public AccountStatus getAccountStatus() {
         return accountStatus;
     }
-
-    public void setID(int id){}
 
     public static class Builder{
         private int ID;

@@ -20,9 +20,6 @@ public class Profile {
     private UnitsDistance unit;
     private String dateOfBirthString;
 
-    public Profile() {
-    }
-
     public Profile(Account account) {
         this.account = account;
     }
