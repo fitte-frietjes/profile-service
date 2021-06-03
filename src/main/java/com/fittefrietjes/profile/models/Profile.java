@@ -2,9 +2,12 @@ package com.fittefrietjes.profile.models;
 
 import com.fittefrietjes.profile.models.enums.UnitsDistance;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Profile {
+
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
     private int ID;
     private Account account;
@@ -15,6 +18,7 @@ public class Profile {
     private double bmi;
     private Snack favouriteSnack;
     private UnitsDistance unit;
+    private String dateOfBirthString;
 
     public Profile(Account account) {
         this.account = account;
@@ -27,6 +31,7 @@ public class Profile {
         this.desiredWeight = builder.desiredWeight;
         this.length = builder.length;
         this.dateOfBirth = builder.dateOfBirth;
+        this.dateOfBirthString = formatter.format(builder.dateOfBirth);
         this.bmi = builder.bmi;
         this.favouriteSnack = builder.favouriteSnack;
         this.unit = builder.unit;
@@ -68,7 +73,11 @@ public class Profile {
         return unit;
     }
 
-    public static class Builder{
+    public String getDateOfBirthString() {
+        return dateOfBirthString;
+    }
+
+    public static class Builder {
         private int ID;
         private Account account;
         private double weight;
@@ -124,7 +133,7 @@ public class Profile {
             return this;
         }
 
-        public Profile build(){
+        public Profile build() {
             return new Profile(this);
         }
     }
