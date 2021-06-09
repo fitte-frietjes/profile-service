@@ -1,12 +1,11 @@
 package com.fittefrietjes.profile.integrationTests;
 
 import com.fittefrietjes.profile.models.Profile;
-import com.fittefrietjes.profile.models.managers.ProfileManager;
+import com.fittefrietjes.profile.models.managers.AccountManager;
 import com.fittefrietjes.profile.controllers.ProfileCtrl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,14 +17,13 @@ import java.util.Date;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProfileCtrl.class)
 public class ProfileCtrlIntegrationTest {
 
     @MockBean
-    private ProfileManager manager;
+    private AccountManager manager;
 
     @Autowired
     private MockMvc mvc;
