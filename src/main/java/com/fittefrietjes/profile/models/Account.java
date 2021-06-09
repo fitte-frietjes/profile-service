@@ -11,6 +11,7 @@ public class Account {
     private String email;
     private Boolean verified;
     private AccountStatus accountStatus;
+    private String password;
 
     public Account(Builder builder) {
         this.ID = builder.ID;
@@ -19,6 +20,7 @@ public class Account {
         this.email = builder.email;
         this.verified = builder.verified;
         this.accountStatus = builder.accountStatus;
+        this.password = builder.password;
     }
 
     public int getID() {
@@ -45,6 +47,10 @@ public class Account {
         return accountStatus;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public static class Builder{
         private int ID;
         private String name;
@@ -52,6 +58,7 @@ public class Account {
         private String email;
         private Boolean verified;
         private AccountStatus accountStatus;
+        private String password;
 
         public Builder setID(int ID) {
             this.ID = ID;
@@ -80,6 +87,11 @@ public class Account {
 
         public Builder setAccountStatus(AccountStatus accountStatus) {
             this.accountStatus = accountStatus;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
             return this;
         }
 

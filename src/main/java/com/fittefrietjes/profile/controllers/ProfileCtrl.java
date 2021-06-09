@@ -1,48 +1,56 @@
 package com.fittefrietjes.profile.controllers;
 
 import com.fittefrietjes.profile.models.Account;
-import com.fittefrietjes.profile.models.Profile;
-import com.fittefrietjes.profile.models.Snack;
-import com.fittefrietjes.profile.models.enums.AccountStatus;
-import com.fittefrietjes.profile.models.enums.LoginType;
-import com.fittefrietjes.profile.models.enums.UnitsDistance;
+import com.fittefrietjes.profile.models.managers.ProfileManager;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/")
 public class ProfileCtrl {
 
+    @Autowired
+    ProfileManager manager;
+
     @Operation(summary = "Get profile by ID")
     @GetMapping("/{ProfileId}")
-    public Profile GetProfileById(@PathVariable("ProfileId") int ProfileId) {
+    public ResponseEntity GetProfileById(@PathVariable("ProfileId") int id) {
 
-        // Create account
-        var account = new Account.Builder()
-                .setID(1)
-                .setName("Test Account")
-                .setEmail("test@test.nl")
-                .setAccountStatus(AccountStatus.ACTIVE)
-                .setLoginType(LoginType.FACEBOOK)
-                .build();
+        var profile = manager.getProfile(id);
 
-        // Create profile
-        var profile = new Profile.Builder()
-                .setAccount(account)
-                .setID(0)
-                .setWeight(70.5)
-                .setDesiredWeight(68.0)
-                .setBmi(22.0)
-                .setLength(180.0)
-                .setFavouriteSnack(new Snack())
-                .setDateOfBirth(new Date())
-                .setUnit(UnitsDistance.KM)
-                .build();
-
-        return profile;
+        return ResponseEntity.ok(profile);
     }
 
+    @Operation(summary = "Get account by ID")
+    @GetMapping("/user/{AccountId}")
+    public ResponseEntity GetAccountById(@PathVariable("AccountId") int id) {
+
+        var account = manager.getAccount(id);
+
+        return ResponseEntity.ok(account);
+    }
+
+    @Operation(summary = "Post a account object",
+            description = "Save a new account object ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Post successful",
+                    content = {@Content(mediaType = "application/json")}
+            ),
+            @ApiResponse(responseCode = "500",
+                    description = "Error while registering new account",
+                    content = {@Content}
+            ),
+    })
+    @PostMapping("/users/register/")
+    public ResponseEntity SaveAccount(@RequestBody Account account) {
+        var savedAccount =  manager.saveAccount(account);
+        return ResponseEntity.ok(savedAccount);
+    }
 }
