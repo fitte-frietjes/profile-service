@@ -8,7 +8,6 @@ import com.fittefrietjes.profile.models.interfaces.iAccountHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class AccountHandler implements iAccountHandler {
 
@@ -41,6 +40,13 @@ public class AccountHandler implements iAccountHandler {
     @Override
     public Account create(Account account) {
         account.setID(accounts.size() + 1);
+
+        for(Account account1 : accounts){
+            if(account1.getEmail().equals(account.getEmail())){
+                return null;
+            }
+        }
+
         accounts.add(account);
         return account;
     }

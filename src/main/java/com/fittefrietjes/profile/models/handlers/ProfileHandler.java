@@ -18,11 +18,27 @@ public class ProfileHandler implements iProfileHandler {
         profiles.add(new Profile.Builder()
                 .setAccount(new Account(1,"Steve", LoginType.FACEBOOK,"steve@fittefrietjes.com",true, AccountStatus.ACTIVE,"yaddayadda"))
                 .setDateOfBirth(new Date())
+                .setID(1)
+                .build());
+        profiles.add(new Profile.Builder()
+                .setAccount(new Account(2,"Luke", LoginType.FACEBOOK,"luke@fittefrietjes.com",true, AccountStatus.ACTIVE,"yaddayadda"))
+                .setDateOfBirth(new Date())
+                .setID(2)
+                .build());
+        profiles.add(new Profile.Builder()
+                .setAccount(new Account(3,"Leah", LoginType.FACEBOOK,"leah@fittefrietjes.com",true, AccountStatus.ACTIVE,"yaddayadda"))
+                .setDateOfBirth(new Date())
+                .setID(3)
                 .build());
     }
 
     @Override
     public Profile get(int id) {
-        return profiles.get(id);
+        for (Profile profile : profiles) {
+            if(profile.getID() == id){
+                return profile;
+            }
+        }
+        return null;
     }
 }
