@@ -19,16 +19,28 @@ public class ProfileHandler implements iProfileHandler {
                 .setAccount(new Account(1,"Steve", LoginType.FACEBOOK,"steve@fittefrietjes.com",true, AccountStatus.ACTIVE,"yaddayadda"))
                 .setDateOfBirth(new Date())
                 .setID(1)
+                .setWeight(88)
+                .setLength(1.55)
+                .setBmi(36)
+                .setDesiredWeight(75)
                 .build());
         profiles.add(new Profile.Builder()
                 .setAccount(new Account(2,"Luke", LoginType.FACEBOOK,"luke@fittefrietjes.com",true, AccountStatus.ACTIVE,"yaddayadda"))
                 .setDateOfBirth(new Date())
                 .setID(2)
+                .setWeight(61)
+                .setLength(1.70)
+                .setBmi(21)
+                .setDesiredWeight(75)
                 .build());
         profiles.add(new Profile.Builder()
                 .setAccount(new Account(3,"Leah", LoginType.FACEBOOK,"leah@fittefrietjes.com",true, AccountStatus.ACTIVE,"yaddayadda"))
                 .setDateOfBirth(new Date())
                 .setID(3)
+                .setWeight(120)
+                .setLength(1.55)
+                .setBmi(49)
+                .setDesiredWeight(75)
                 .build());
     }
 
