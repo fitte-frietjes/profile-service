@@ -1,48 +1,98 @@
 package com.fittefrietjes.profile.controllers;
 
 import com.fittefrietjes.profile.models.Account;
-import com.fittefrietjes.profile.models.Profile;
-import com.fittefrietjes.profile.models.Snack;
-import com.fittefrietjes.profile.models.enums.AccountStatus;
-import com.fittefrietjes.profile.models.enums.LoginType;
-import com.fittefrietjes.profile.models.enums.UnitsDistance;
+import com.fittefrietjes.profile.models.ErrorMessage;
+import com.fittefrietjes.profile.models.managers.AccountManager;
+import com.fittefrietjes.profile.models.managers.ProfileManager;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/")
 public class ProfileCtrl {
 
-    @Operation(summary = "Get profile by ID")
-    @GetMapping("/{ProfileId}")
-    public Profile GetProfileById(@PathVariable("ProfileId") int ProfileId) {
+    @Autowired
+    AccountManager accountManager;
 
-        // Create account
-        var account = new Account.Builder()
-                .setID(1)
-                .setName("Test Account")
-                .setEmail("test@test.nl")
-                .setAccountStatus(AccountStatus.ACTIVE)
-                .setLoginType(LoginType.FACEBOOK)
-                .build();
+    @Autowired
+    ProfileManager profileManager;
 
-        // Create profile
-        var profile = new Profile.Builder()
-                .setAccount(account)
-                .setID(0)
-                .setWeight(70.5)
-                .setDesiredWeight(68.0)
-                .setBmi(22.0)
-                .setLength(180.0)
-                .setFavouriteSnack(new Snack())
-                .setDateOfBirth(new Date())
-                .setUnit(UnitsDistance.KM)
-                .build();
-
-        return profile;
+    @Operation(summary = "Get health check")
+    @GetMapping("")
+    public ResponseEntity GetHealthCheck() {
+        return ResponseEntity.ok("{ 'STATUS': Good to go! }");
     }
 
+    @Operation(summary = "Get profile by ID")
+    @GetMapping("/{ProfileId}")
+    public ResponseEntity GetProfileById(@PathVariable("ProfileId") int id) {
+
+        var profile = profileManager.getById(id);
+
+        if(profile == null){
+
+            return new ResponseEntity<String>(
+                    new ErrorMessage(400, "This profile does not exist.").toString(),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        return ResponseEntity.ok(profile);
+    }
+
+    @Operation(summary = "Get account by ID")
+    @GetMapping("/users/all")
+    public ResponseEntity GetAllAccounts() {
+
+        var accounts = accountManager.getAll();
+
+        return ResponseEntity.ok(accounts);
+    }
+
+    @Operation(summary = "Get account by ID")
+    @GetMapping("/users/{AccountId}")
+    public ResponseEntity GetAccountById(@PathVariable("AccountId") int id) {
+
+        var account = accountManager.getById(id);
+
+        if(account == null){
+
+            return new ResponseEntity<String>(
+                    new ErrorMessage(400, "This user does not exist.").toString(),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        return ResponseEntity.ok(account);
+    }
+
+    @Operation(summary = "Post a account object",
+            description = "Save a new account object ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Post successful",
+                    content = {@Content(mediaType = "application/json")}
+            ),
+            @ApiResponse(responseCode = "500",
+                    description = "Error while registering new account",
+                    content = {@Content}
+            ),
+    })
+    @RequestMapping(method = RequestMethod.POST, value ="/users/register")
+    public ResponseEntity SaveAccount(@RequestBody Account account) {
+        var savedAccount =  accountManager.save(account);
+
+        if(savedAccount == null){
+
+            return new ResponseEntity<String>(
+                    new ErrorMessage(400, "This email address already exists.").toString(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(savedAccount);
+    }
 }
